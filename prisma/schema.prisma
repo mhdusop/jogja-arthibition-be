@@ -13,6 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TipePameran {
+  SENI_RUPA
+  FOTOGRAFI
+  BARANG_ANTIK
+  SENI_BUDAYA
+}
+
 model User {
   id       Int    @id @default(autoincrement())
   fullname String
@@ -22,19 +29,19 @@ model User {
 }
 
 model Pameran {
-  id                   Int             @id @default(autoincrement())
+  id                   Int           @id @default(autoincrement())
   nama_pameran         String
   tgl_mulai_pameran    DateTime
   tgl_berakhir_pameran DateTime?
   alamat_pameran       String
-  tipe_pameran         String
-  penyelenggara        Penyelenggara[]
+  tipe_pameran         TipePameran
+  penyelenggara_id     Int
+  penyelenggara        Penyelenggara @relation(fields: [penyelenggara_id], references: [id])
 }
 
 model Penyelenggara {
-  id                  Int     @id @default(autoincrement())
+  id                  Int       @id @default(autoincrement())
   nama_penyelenggara  String
   image_penyelenggara String
-  pameran_id          Int
-  Pameran             Pameran @relation(fields: [pameran_id], references: [id])
+  Pameran             Pameran[]
 }
