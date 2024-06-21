@@ -12,3 +12,29 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int    @id @default(autoincrement())
+  fullname String
+  username String @unique
+  email    String @unique
+  password String
+}
+
+model Pameran {
+  id                   Int             @id @default(autoincrement())
+  nama_pameran         String
+  tgl_mulai_pameran    DateTime
+  tgl_berakhir_pameran DateTime?
+  alamat_pameran       String
+  tipe_pameran         String
+  penyelenggara        Penyelenggara[]
+}
+
+model Penyelenggara {
+  id                  Int     @id @default(autoincrement())
+  nama_penyelenggara  String
+  image_penyelenggara String
+  pameran_id          Int
+  Pameran             Pameran @relation(fields: [pameran_id], references: [id])
+}
