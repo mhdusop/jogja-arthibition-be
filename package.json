@@ -1,0 +1,10 @@
+{
+   "type": "module",
+   "scripts": {
+      "serve": "bun --watch src/index.js"
+   },
+   "dependencies": {
+      "express": "^4.19.2",
+      "prisma": "^5.15.1"
+   }
+}
